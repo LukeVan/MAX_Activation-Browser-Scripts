@@ -1,0 +1,15 @@
+# Exclude Archive folder from git
+Archive/
+
+# Exclude system files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Exclude Tampermonkey config files if they get exported
+*.options.json
+*.storage.json
