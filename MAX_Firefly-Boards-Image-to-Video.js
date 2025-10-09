@@ -1,10 +1,10 @@
 // ==UserScript==
-// @name         MAX_Activation_Frameio
+// @name         MAX_Activation_Firefly_Boards_Image_to_Video
 // @namespace    http://tampermonkey.net/
 // @version      1.3
-// @description  Frame.io 3-step walkthrough dialog as per visual design
+// @description  Firefly Boards Image to Video
 // @author       You
-// @match        https://next.frame.io/*
+// @match        https://express.adobe.com/*
 // @grant        none
 // ==/UserScript==
 
@@ -24,22 +24,28 @@
 
     const stepContent = {
         1: {
-            text: "Your Mini is here. <br>Let’s refine it.",
+            text: "Import your harmonized Mini.",
             buttonText: "Next",
-            iconImgSrc: "https://main--activations-da--adobedevxsc.aem.live/sharpie/assets/popup-icon/media_196c5ad0f792b5eeb3d2cf36439a223a446831408.png",
+            iconImgSrc: "https://main--activations-da--adobedevxsc.aem.live/sharpie/assets/popup-icon/media_1a9ab3b5083454ca85baf8612440a189bb5b1ab25.png",
             bgImage: 'https://main--activations-da--adobedevxsc.aem.live/coca-cola/assets/media_173a58e111a1c3e1f8fc8453d319fb14f66f889cb.png'
         },
         2: {
-            text: "Firefly just cleaned it up—background gone,<br> lines sharper, details brighter.",
+            text: "Type a short prompt to guide the action <br>—like ‘walking,’ ‘waving,’ or ‘jumping.",
             buttonText: "Next",
-            iconImgSrc: "https://main--activations-da--adobedevxsc.aem.live/sharpie/assets/popup-icon/media_191d4c19d159f8ca7eb808533ee7be29aab8eb5c5.png",
+            iconImgSrc: "https://main--activations-da--adobedevxsc.aem.live/sharpie/assets/popup-icon/media_1438856b7b58a9a914d1b386cdc61fe1490ff10e4.png",
             bgImage: 'https://main--activations-da--adobedevxsc.aem.live/sharpie/assets/popup-icon/media_1c20c9d30d35131a94da8f113d1177f185cd89dac.jpg'
         },
         3: {
-            text: "Mark as Approved to send your</br> Mini forward.",
+            text: "Generate and preview <br>a few options.",
             buttonText: "Next",
-            iconImgSrc: "https://main--activations-da--adobedevxsc.aem.live/sharpie/assets/popup-icon/media_18ace54cf9d1497b6e71ef5ead29f3d5649d3be6c.png",
+            iconImgSrc: "https://main--activations-da--adobedevxsc.aem.live/sharpie/assets/popup-icon/media_1da37a213a7cabe5f14cafa01055b18946951c5a2.png",
             bgImage: 'https://main--activations-da--adobedevxsc.aem.live/coca-cola/assets/media_114daa25ded116ee560a9032294b531571c2289e4.png'
+        },
+        4: {
+            text: "Pick the version you like best, <br>then download it.",
+            buttonText: "Next",
+            iconImgSrc: "https://main--activations-da--adobedevxsc.aem.live/sharpie/assets/popup-icon/media_1e230a5b747ff80f8883d1fe0df5919156ec1e2e0.png",
+            bgImage: 'https://main--activations-da--adobedevxsc.aem.live/sharpie/assets/popup-icon/media_1ffb20d82eeda5b0ad5cdc58450df5f4019c9b121.jpg'
         }
     };
 
@@ -73,7 +79,7 @@
             updateDialogContent();
             return;
         }
-
+        console.log(stepContent[currentStep].iconImgSrc)
         // Outer dialog
         dialog = document.createElement('div');
         dialog.id = 'frame-walkthrough-dialog';
@@ -82,7 +88,7 @@
             bottom: 28px !important;
             right: 40px !important;
             z-index: 2147483647 !important;
-            background-image: url('https://main--activations-da--adobedevxsc.aem.live/coca-cola/assets/media_114daa25ded116ee560a9032294b531571c2289e4.png');
+            background-image: url('https://main--activations-da--adobedevxsc.aem.live/sharpie/assets/popup-icon/media_1ffb20d82eeda5b0ad5cdc58450df5f4019c9b121.jpg');
             padding: 7px !important;
             width: auto!important;
             box-shadow: 0px 0px 2.73543px rgba(0, 0, 0, 0.12), 0px 2.73543px 8.2063px rgba(0, 0, 0, 0.04), 0px 5.47087px 16.4126px rgba(0, 0, 0, 0.08)!important;
@@ -153,7 +159,7 @@
             gap: 15.66px !important;
             align-items: center !important;
         `;
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 4; i++) {
             const dot = document.createElement('div');
             dot.classList.add('frame-step-dot');
             dot.dataset.step = i + 1;
@@ -176,6 +182,7 @@
         button.textContent = stepContent[currentStep].buttonText;
         button.style.cssText = `
             background: #274DEA !important;
+            color: #fff !important;
             border-radius: 27.3188px  !important;
             border: none !important;
             padding: 12px 28px !important;
@@ -190,7 +197,7 @@
         button.addEventListener('mouseenter', function () { this.style.backgroundColor = '#4338ca'; });
         button.addEventListener('mouseleave', function () { this.style.backgroundColor = '#274DEA'; });
         button.addEventListener('click', function () {
-            if (currentStep < 3) {
+            if (currentStep < 4) {
                 currentStep++;
                 updateDialogContent();
             } else {
